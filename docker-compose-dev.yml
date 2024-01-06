@@ -1,0 +1,21 @@
+version: '3'
+services:
+    mysql:
+        image: mysql:8.0
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_RANDOM_ROOT_PASSWORD: true
+        networks:
+            - service-network
+        volumes:
+            - "./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql"
+            - "mysql_database:/var/lib/mysql"
+networks:
+    service-network:
+        driver: bridge
+volumes:
+  mysql_database:
+    driver: local
