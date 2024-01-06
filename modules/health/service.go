@@ -8,4 +8,6 @@ type Service struct {
 	tS test.Service
 }
 
-func (s *Service) status() {}
+func (s *Service) status() string {
+	return "Working!" + s.tS.Test()
+}

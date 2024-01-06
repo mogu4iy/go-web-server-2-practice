@@ -2,7 +2,6 @@ package module
 
 import (
 	"log"
-	_ "log"
 )
 
 type Module interface {
@@ -41,4 +40,4 @@ func (m *UnimplementedModule) InitControllers() error {
 	return nil
 }
 
-func (m *UnimplementedModule) mustEmbedUnimplementedModule() {}
+func (*UnimplementedModule) mustEmbedUnimplementedModule() {}

@@ -16,20 +16,20 @@ type Controller struct {
 func (c *Controller) Init() error {
 	c.SetPrefix("health")
 	hRouter := c.app.Router.Group(c.Prefix)
-	c.AddRoute(hRouter, &module.HttpRequesthandler{
+	c.AddRoute(hRouter, &module.HTTPRequesthandler{
 		Method: http.MethodGet,
 		Path: "/",
-		Handlers: []gin.HandlerFunc{c.Status},
+		Handlers: []module.HTTPHandlerFunc{c.Status},
 	})
 	hV1Router := c.app.V1Router.Group(c.Prefix)
-	c.AddRoute(hV1Router, &module.HttpRequesthandler{
+	c.AddRoute(hV1Router, &module.HTTPRequesthandler{
 		Method: http.MethodGet,
 		Path: "/",
-		Handlers: []gin.HandlerFunc{c.Status},
+		Handlers: []module.HTTPHandlerFunc{c.Status},
 		})
 	return nil	
 }
 
-func (c *Controller) Status(g *gin.Context) {
-	c.s.status()
+func (c *Controller) Status(ctx *gin.Context) (interface{}, error) {
+	return c.s.status(), nil
 }
