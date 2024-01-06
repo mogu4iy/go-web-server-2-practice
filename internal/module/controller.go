@@ -3,7 +3,6 @@ package module
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 )
 
@@ -36,7 +35,7 @@ type Controller interface {
 	AddRoute(router *gin.RouterGroup, controller *HTTPRequesthandler)
 	InitRoutes()
 	ApplyHandler(handler HTTPHandlerFunc) gin.HandlerFunc
-	AbortWithStatus(code int)
+	ErrorWithStatus(code int, err error) error 
 	mustEmbedUnimplementedController()
 }
 
@@ -88,7 +87,6 @@ func (c *UnimplementedController) AddRoute(router *gin.RouterGroup, handler *HTT
 }
 
 func (c *UnimplementedController) InitRoutes(){
-	log.Println("InitRoutes --> ",c.routes)
 	for route, requestHandlers := range c.routes {
 		for _, requestHandler := range requestHandlers {
 			handlers := make([]gin.HandlerFunc, len(requestHandler.Handlers))

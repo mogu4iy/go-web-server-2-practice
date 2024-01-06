@@ -1,9 +1,5 @@
 package module
 
-import (
-	"log"
-)
-
 type Module interface {
 	Init() error
 	AddController(Controller)
@@ -16,7 +12,6 @@ type UnimplementedModule struct {
 }
 
 func (m *UnimplementedModule) Init() error{
-	log.Println("Init Module --> ", m)
 	err := m.InitControllers()
 	if err != nil {
 		return err
@@ -29,7 +24,6 @@ func (m *UnimplementedModule) AddController(s Controller) {
 }
 
 func (m *UnimplementedModule) InitControllers() error {
-	log.Println("InitControllers --> ", m.controllers)
 	for _, c := range m.controllers {
 		err := c.Init()
 		if err != nil {

@@ -8,12 +8,13 @@ import (
 )
 
 type DB struct {
+	DSN string
 	Engine *gorm.DB
 }
 
 func (db *DB) Init () (err error){
 	db.Engine, err = gorm.Open(mysql.New(mysql.Config{
-		DSN: "",
+		DSN: db.DSN,
 	}), &gorm.Config{})
 	if err !=nil {
 		return

@@ -8,6 +8,7 @@ services:
         environment:
             PORT: 5000
             VERSION: v2
+            DSN: web-server:bAssKLjmYnQf3!bJGy6BJ@@tcp(mysql:3306)/web_server_db?charset=utf8mb4&parseTime=True&loc=Local
         ports:
             - "5000:5000"
         networks:

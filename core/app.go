@@ -3,10 +3,11 @@ package core
 import (
 	"github.com/gin-gonic/gin"
 	"go-web-server-2-practice/internal/module"
-	"log"
 )
 
 type App struct {
+	Version string
+	V1Version string
 	Engine *gin.Engine
 	Router *gin.RouterGroup
 	V1Router *gin.RouterGroup
@@ -19,10 +20,9 @@ func (a *App) AddModule(m module.Module) {
 }
 
 func (a *App) Init() error{
-	log.Println("Init App --> ", a.modules)
 	engine := gin.Default()
-	a.VRouter = engine.Group("v2")
-	a.V1Router = engine.Group("v1")
+	a.VRouter = engine.Group(a.Version)
+	a.V1Router = engine.Group(a.V1Version)
 	a.Router = engine.Group("/")
 	for _, m := range a.modules {
 		err:= m.Init()
